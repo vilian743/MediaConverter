@@ -2,7 +2,7 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
   "productName": "MediaConverter",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "identifier": "com.mediaconverter.desktop",
   "build": {
     "beforeDevCommand": "npm run dev",
@@ -13,7 +13,7 @@
   "app": {
     "windows": [
       {
-        "title": "MediaConverter — Arcane Edition",
+        "title": "MediaConverter â€” Arcane Edition",
         "width": 1440,
         "height": 940,
         "minWidth": 900,
@@ -47,3 +47,4 @@
     }
   }
 }
+

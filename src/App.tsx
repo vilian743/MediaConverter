@@ -362,10 +362,15 @@ function App() {
         } else {
           await update.close();
         }
-      } catch (error) {
+            } catch (error) {
         console.error(
           "Vérification ou installation de la mise à jour impossible :",
           error
+        );
+        window.alert(
+          `Erreur de mise à jour : ${
+            error instanceof Error ? error.message : String(error)
+          }`
         );
       }
     };
