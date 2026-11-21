@@ -1,4 +1,4 @@
-﻿[package]
+[package]
 name = "mediaconverter"
 version = "0.1.2"
 description = "MediaConverter Desktop"
