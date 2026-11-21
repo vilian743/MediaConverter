@@ -27,13 +27,23 @@
   },
   "bundle": {
     "active": true,
+    "createUpdaterArtifacts": true,
     "targets": ["nsis", "dmg", "app"],
-    "icon": [
-      "icons/icon.ico"
-    ],
+    "icon": ["icons/icon.ico"],
     "resources": [
       "binaries/ffmpeg.exe",
       "binaries/ffprobe.exe"
     ]
+  },
+  "plugins": {
+    "updater": {
+      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaW5nIHB1YmxpYyBrZXk6IEE3Q0I0OUUwRUJGRDkwNUYKUldSZmtQM3I0RW5McDB6RjJrdmpJQjFzVkMxUEp1NDczTEhqOGgrTk4rYTMxZDNvSXZvVDhaZ0oK",
+      "endpoints": [
+        "https://github.com/vilian743/MediaConverter/releases/latest/download/latest.json"
+      ],
+      "windows": {
+        "installMode": "passive"
+      }
+    }
   }
 }

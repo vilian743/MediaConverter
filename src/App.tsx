@@ -3,7 +3,8 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { invoke } from "@tauri-apps/api/core";
 import { listen } from "@tauri-apps/api/event";
 import { getCurrentWebview } from "@tauri-apps/api/webview";
-import { open, save } from "@tauri-apps/plugin-dialog";
+import { ask, open, save } from "@tauri-apps/plugin-dialog";
+import { check } from "@tauri-apps/plugin-updater";
 
 import {
   AudioLines,
@@ -325,6 +326,54 @@ function App() {
       if (notificationTimer.current) {
         window.clearTimeout(notificationTimer.current);
       }
+    };
+  }, []);
+    // Vérification des mises à jour au démarrage.
+  useEffect(() => {
+    let mounted = true;
+
+    const checkForUpdates = async () => {
+      let update = null;
+
+      try {
+        update = await check();
+
+        if (!mounted) {
+          await update?.close();
+          return;
+        }
+
+        if (!update) {
+          return;
+        }
+
+        const accepted = await ask(
+          `Une nouvelle version (${update.version}) de MediaConverter est disponible. Voulez-vous la télécharger et l'installer maintenant ?`,
+          {
+            title: "Mise à jour de MediaConverter",
+            kind: "info",
+            okLabel: "Mettre à jour",
+            cancelLabel: "Plus tard",
+          }
+        );
+
+        if (accepted) {
+          await update.downloadAndInstall();
+        } else {
+          await update.close();
+        }
+      } catch (error) {
+        console.error(
+          "Vérification ou installation de la mise à jour impossible :",
+          error
+        );
+      }
+    };
+
+    void checkForUpdates();
+
+    return () => {
+      mounted = false;
     };
   }, []);
 
